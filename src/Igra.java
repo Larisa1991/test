@@ -2,7 +2,18 @@ import java.io.*;
 import java.util.Scanner;
 public class Igra {
 
-    public static String rez(int sluchChisla[], int intArr[], int kolsovpaden1)
+	public static int[] stroka(String string)
+	{
+		 String stringArr[] = string.split(" ");
+         int[] intArr = new int[stringArr.length];
+         for (int i = 0; i < intArr.length; i++)
+         {
+             intArr[i] = Integer.parseInt(stringArr[i]);                         
+         }  
+         return intArr;
+     }
+	
+	public static String rez(int sluchChisla[], int intArr[], int kolsovpaden1)
     {
         for(int j=0;j<6; j++)
         {
@@ -16,58 +27,53 @@ public class Igra {
             }
         }
         String rez;
-        if(kolsovpaden1>=3)
-            	     
-        {
-            	rez="Lucky";
-        }
-        else
-        {
-        	rez="Unlucky";
-        }
+        if(kolsovpaden1>=3) {rez="Lucky";}
+        else {rez="Unlucky";}
         return rez;
     }
 
     public static void main(String[] args)throws Exception {
-        FileReader fr= new FileReader("file.txt");
+    	Scanner in = new Scanner(System.in);
+    	System.out.println("¬ведите: 0-если ввод с консоли");
+    	System.out.println("         1-если ввод с файла");
+    	int input=in.nextInt();
+    	
+    	System.out.println("¬ведите: 0-если вывод в консоль");
+    	System.out.println("         1-если вывод в файл");
+    	int conclusion=in.nextInt();
+    	
+    	FileReader fr= new FileReader("file.txt");
         FileWriter fw = new FileWriter( "file1.txt" );
         Scanner scan = new Scanner(fr);
-
-        int kolstrok=1;
+        String string; 
+        
         int[] sluchChisla=new int[10] ;
-        while (scan.hasNextLine()) {
-
-            String string = scan.nextLine();
-
-            String stringArr[] = string.split(" ");
-            int[] intArr = new int[stringArr.length];
-            for (int i = 0; i < intArr.length; i++)
+        string = scan.nextLine();
+        for(int i=0;i < sluchChisla.length; i++)
             {
-                intArr[i] = Integer.parseInt(stringArr[i]);
+            	if(input==1){sluchChisla[i]= stroka(string)[i];}
+            	if(input==0){sluchChisla[i]=in.nextInt();}
             }
+         string = scan.nextLine();
 
-            if (kolstrok==1)
-            {
-                for(int i=0;i < sluchChisla.length; i++)
-                {
-                    sluchChisla[i]=intArr[i];
-                }
-            }
-
-            if (kolstrok==2)
-            {
-
-            }
-
-            if (kolstrok>2)
-            {
-            	String rez = rez(sluchChisla, intArr,0); 
-            	fw.write(rez+"\n");
-                
-            }
-            kolstrok++;
-        }
-        fw.close();
-        fr.close();
+         int kolbilet = 0;
+         if(input==1){kolbilet= stroka(string)[0];}
+         if(input==0){kolbilet=in.nextInt();}
+         for (int i = 0; i < kolbilet; i++)
+          {
+        	 string = scan.nextLine();
+        	 int[] Arr = new int[6];
+        	 for(int j=0;j< Arr.length; j++)
+        	 {
+        		 if(input==1){Arr[j]= stroka(string)[j];}
+        		 if(input==0){Arr[j]=in.nextInt();}
+        	 }
+        	 String rez = rez(sluchChisla, Arr,0);
+        	 if(conclusion==1){fw.write(rez+"\n");}
+        	 if(conclusion==0){System.out.println(rez);}
+          }
+         fw.close();
+         fr.close();
+         in.close();
     }
 }
