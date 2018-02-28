@@ -1,8 +1,8 @@
 import java.io.*;
-        import java.util.Scanner;
+import java.util.Scanner;
 public class Igra {
 
-    public static int rez(int sluchChisla[], int intArr[], int kolsovpaden1)
+    public static String rez(int sluchChisla[], int intArr[], int kolsovpaden1)
     {
         for(int j=0;j<6; j++)
         {
@@ -15,7 +15,17 @@ public class Igra {
                 }
             }
         }
-        return kolsovpaden1;
+        String rez;
+        if(kolsovpaden1>=3)
+            	     
+        {
+            	rez="Lucky";
+        }
+        else
+        {
+        	rez="Unlucky";
+        }
+        return rez;
     }
 
     public static void main(String[] args)throws Exception {
@@ -51,15 +61,9 @@ public class Igra {
 
             if (kolstrok>2)
             {
-                int kolsovpaden1 = rez(sluchChisla, intArr,0);
-                if(kolsovpaden1>=3)
-                {
-                    fw.write("Lucky"+"\n");
-                }
-                else
-                {
-                    fw.write("Unlucky"+"\n");
-                }
+            	String rez = rez(sluchChisla, intArr,0); 
+            	fw.write(rez+"\n");
+                
             }
             kolstrok++;
         }
